@@ -134,19 +134,20 @@ export function CodeSnippet(props: CodeSnippetProps) {
         showLineNumbers={showLineNumbers}
         wrapLines
         lineNumberStyle={{ color: theme.palette.textVerySubtle }}
-        lineProps={(lineNumber: number) => {
+        lineProps={lineNumber => {
           const ref =
             lineNumber === scrollToLine
               ? (lineNumberRef.current = React.createRef())
               : undefined;
-          return highlightedNumbers?.includes(lineNumber)
-            ? {
-                ref,
-                class: classes.highlight,
-              }
-            : {
-                ref,
-              };
+
+          const className = highlightedNumbers?.includes(lineNumber)
+            ? classes.highlight
+            : undefined;
+
+          return {
+            ref,
+            class: className,
+          };
         }}
       >
         {text}
